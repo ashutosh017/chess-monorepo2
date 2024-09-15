@@ -71,7 +71,8 @@ export const Chessboard = ({
                     {square ? (
                       <img
                         className="w-12 sm:w-20"
-                        src={`/${square.color==='w'?'b':'w'}${square.type==='k'?'q':square.type==='q'?'k':square.type}.png`}
+                        // src={`/${square.color==='w'?'b':'w'}${square.type==='k'?'q':square.type==='q'?'k':square.type}.png`}
+                        src={`/${square.color}${square.type}.png`}
                       />
                     ) : (
                       ""

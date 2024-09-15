@@ -13,6 +13,7 @@ export const Game = ()=>{
     const [chess, setChess] = useState(new Chess())
     const [board, setBoard] = useState(chess.board())
     const[isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [color, setColor] = useState("");
 
     useEffect(()=>{
         if(!socket)return;
@@ -23,7 +24,8 @@ export const Game = ()=>{
             case INIT_GAME:
                 setChess(new Chess())
                 setBoard(chess.board())
-                console.log("Game initialized");
+                console.log("Game initialized and you are: ", message.payload.color);
+                setColor(message.payload.color);
                 break;
             case MOVE:
                 console.log("mesage: ",message);
@@ -45,7 +47,7 @@ export const Game = ()=>{
     if(!socket)return <div>connecting...</div>
     return <div>
         <div className="flex flex-col gap-8 p-4 sm:flex-row  items-center text-white ">
-            <div className=""><Chessboard chess={chess} setBoard={setBoard} socket={socket} board={board}/></div>
+            <div className=""><Chessboard chess={chess} setBoard={setBoard} socket={socket} board={board} color={color}/></div>
             <div className="  ">{!isPlaying && <Button onclick={()=>{
                 socket.send(JSON.stringify({
                     type:INIT_GAME
